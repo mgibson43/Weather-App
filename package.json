@@ -1,0 +1,27 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "Application to pull data from weather api and display the weather data",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgibson43/Weather-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mgibson43/Weather-App/issues"
+  },
+  "homepage": "https://github.com/mgibson43/Weather-App#readme",
+  "devDependencies": {
+    "css-loader": "^6.7.4",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.84.0",
+    "webpack-cli": "^5.1.1"
+  }
+}
