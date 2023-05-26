@@ -1,3 +1,5 @@
+import './style.css';
+
 (function() {
   'use strict'
 
@@ -26,10 +28,12 @@
   const condition = document.createElement('div');
   const humidity = document.createElement('div');
 
-  tempC.classList.add('temp');
-  tempF.classList.add('temp');
-  tempFeelC.classList.add('temp');
-  tempFeelF.classList.add('temp');
+  tempC.classList.add('info');
+  tempF.classList.add('info');
+  tempFeelC.classList.add('info');
+  tempFeelF.classList.add('info');
+  condition.classList.add('info');
+  humidity.classList.add('info');
     
   const searchBox = document.createElement('div');
   searchBox.classList.add('searchBox');
@@ -42,7 +46,7 @@
   const searchBtn = document.createElement('button');
   searchBtn.classList.add('btn');
   searchBtn.textContent = 'Search';
-  searchBtn.addEventListener('click', displayInfo);
+  searchBtn.addEventListener('click', getWeatherData);
     
   searchBox.appendChild(search);
   searchBox.appendChild(searchBtn);
@@ -56,20 +60,20 @@
   async function getWeatherData() {
     let searchKey;
     search.value == '' ? searchKey = 'New York' : searchKey = search.value;
-
+    search.value = '';
     try {
       const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=48bf9f94d8334512a48223601232205&q=${searchKey}&aqi=no`, {mode: 'cors'});
       
       const responseData = await response.json();
       
       const weatherData = {
-        temp_f: responseData.current.temp_f,
+        tempF: responseData.current.temp_f,
         
-        temp_c: responseData.current.temp_c,
+        tempC: responseData.current.temp_c,
         
-        feelsLike_f: responseData.current.feelslike_f,
+        feelsLikeF: responseData.current.feelslike_f,
         
-        feelsLike_c: responseData.current.feelslike_c,
+        feelsLikeC: responseData.current.feelslike_c,
         
         condition: responseData.current.condition.text,
         
@@ -79,6 +83,8 @@
         
         reg: responseData.location.region,
       };
+
+      displayInfo(weatherData);
       console.log(weatherData);
     }
 
@@ -87,10 +93,22 @@
     }
   }
 
-  getWeatherData();
 
-  async function displayInfo() {
-    await getWeatherData();
-    
+  function displayInfo(data) {
+    humidity.textContent = `Humidity: ${data.hum}`
+    condition.textContent = `Condition: ${data.condition}`
+    tempC.textContent = `C: ${data.tempC}`
+    tempF.textContent = `F: ${data.tempF}`
+    tempFeelC.textContent = `Feels Like (C): ${data.feelsLikeC}`
+    tempFeelF.textContent = `Feels Like (F): ${data.feelsLikeF}`
+
+    document.querySelector('.tempBox1').appendChild(humidity);
+    document.querySelector('.tempBox2').appendChild(condition);
+    document.querySelector('.tempBox3').appendChild(tempC);
+    document.querySelector('.tempBox4').appendChild(tempF);
+    document.querySelector('.tempBox5').appendChild(tempFeelC);
+    document.querySelector('.tempBox6').appendChild(tempFeelF);
   }
+
+  getWeatherData();
 })();
