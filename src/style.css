@@ -4,6 +4,11 @@
   margin: 0;
 }
 
+.main {
+  display: flex;
+  gap: 3rem;
+}
+
 .container{
   display: flex;
   flex-direction: column;
@@ -12,4 +17,23 @@
   gap: 2rem;
 
   margin-top: max(12rem);
+}
+
+.weatherCard {
+  padding: 8rem 4rem;
+  border: 1px solid black;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.infoTemp {
+  font-size: 42px;
+  font-weight: 500;
+}
+
+.infoCond {
+  font-size: 24px;
 }

@@ -15,25 +15,34 @@ import './style.css';
   
   main.appendChild(location);
 
-  for (let i = 1; i < 7; i++) {
-    const div = document.createElement('div');
-    div.classList.add(`tempBox${i}`);
-    main.appendChild(div);
-  }
+  const celBox = document.createElement('div');
+  const farBox = document.createElement('div');
+  const condBox = document.createElement('div');
 
-  const tempC = document.createElement('div');
-  const tempF = document.createElement('div');
-  const tempFeelF = document.createElement('div');
-  const tempFeelC = document.createElement('div');
-  const condition = document.createElement('div');
-  const humidity = document.createElement('div');
+  celBox.classList.add('weatherCard');
+  farBox.classList.add('weatherCard');
+  condBox.classList.add('weatherCard');
 
-  tempC.classList.add('info');
-  tempF.classList.add('info');
-  tempFeelC.classList.add('info');
-  tempFeelF.classList.add('info');
-  condition.classList.add('info');
-  humidity.classList.add('info');
+  const tempC = document.createElement('p');
+  const tempF = document.createElement('p');
+  const tempFeelF = document.createElement('p');
+  const tempFeelC = document.createElement('p');
+  const condition = document.createElement('p');
+  const humidity = document.createElement('p');
+
+  tempC.classList.add('infoTemp');
+  tempF.classList.add('infoTemp');
+  tempFeelC.classList.add('infoFeel');
+  tempFeelF.classList.add('infoFeel');
+  condition.classList.add('infoCond');
+  humidity.classList.add('infoCond');
+
+  celBox.appendChild(tempC);
+  celBox.appendChild(tempFeelC);
+  farBox.appendChild(tempF);
+  farBox.appendChild(tempFeelF);
+  condBox.appendChild(condition);
+  condBox.appendChild(humidity);
     
   const searchBox = document.createElement('div');
   searchBox.classList.add('searchBox');
@@ -50,6 +59,10 @@ import './style.css';
     
   searchBox.appendChild(search);
   searchBox.appendChild(searchBtn);
+
+  main.appendChild(celBox);
+  main.appendChild(farBox);
+  main.appendChild(condBox);
     
   container.appendChild(main);
   container.appendChild(searchBox);
@@ -97,17 +110,10 @@ import './style.css';
   function displayInfo(data) {
     humidity.textContent = `Humidity: ${data.hum}`
     condition.textContent = `Condition: ${data.condition}`
-    tempC.textContent = `C: ${data.tempC}`
-    tempF.textContent = `F: ${data.tempF}`
-    tempFeelC.textContent = `Feels Like (C): ${data.feelsLikeC}`
-    tempFeelF.textContent = `Feels Like (F): ${data.feelsLikeF}`
-
-    document.querySelector('.tempBox1').appendChild(humidity);
-    document.querySelector('.tempBox2').appendChild(condition);
-    document.querySelector('.tempBox3').appendChild(tempC);
-    document.querySelector('.tempBox4').appendChild(tempF);
-    document.querySelector('.tempBox5').appendChild(tempFeelC);
-    document.querySelector('.tempBox6').appendChild(tempFeelF);
+    tempC.textContent = `${data.tempC}°C`
+    tempF.textContent = `${data.tempF}°F`
+    tempFeelC.textContent = `Feels like ${data.feelsLikeC}°C`
+    tempFeelF.textContent = `Feels like ${data.feelsLikeF}°F`
   }
 
   getWeatherData();
