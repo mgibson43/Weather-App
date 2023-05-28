@@ -3,7 +3,8 @@ import './style.css';
 (function() {
   'use strict'
 
-
+  const conditions = new Map();
+  conditions.set('sunny', )
   const container = document.createElement('div');
   const main = document.createElement('main');
 
@@ -18,16 +19,20 @@ import './style.css';
   const celBox = document.createElement('div');
   const farBox = document.createElement('div');
   const condBox = document.createElement('div');
+  const humBox = document.createElement('div');
+  const weatherBox = document.createElement('div');
 
   celBox.classList.add('weatherCard');
   farBox.classList.add('weatherCard');
-  condBox.classList.add('weatherCard');
+  weatherBox.classList.add('weatherCard');
 
   const tempC = document.createElement('p');
   const tempF = document.createElement('p');
   const tempFeelF = document.createElement('p');
   const tempFeelC = document.createElement('p');
-  const condition = document.createElement('p');
+  const conditionTxt = document.createElement('p');
+  const condition = document.createElement('div');
+  const humidityTxt = document.createElement('p');
   const humidity = document.createElement('p');
 
   tempC.classList.add('infoTemp');
@@ -36,13 +41,19 @@ import './style.css';
   tempFeelF.classList.add('infoFeel');
   condition.classList.add('infoCond');
   humidity.classList.add('infoCond');
+  conditionTxt.classList.add('condTxt');
+  humidityTxt.classList.add('condTxt');
 
   celBox.appendChild(tempC);
   celBox.appendChild(tempFeelC);
   farBox.appendChild(tempF);
   farBox.appendChild(tempFeelF);
   condBox.appendChild(condition);
-  condBox.appendChild(humidity);
+  condBox.appendChild(conditionTxt);
+  humBox.appendChild(humidity);
+  humBox.appendChild(humidityTxt);
+  weatherBox.appendChild(condBox);
+  weatherBox.appendChild(humBox);
     
   const searchBox = document.createElement('div');
   searchBox.classList.add('searchBox');
@@ -62,7 +73,7 @@ import './style.css';
 
   main.appendChild(celBox);
   main.appendChild(farBox);
-  main.appendChild(condBox);
+  main.appendChild(weatherBox);
     
   container.appendChild(main);
   container.appendChild(searchBox);
@@ -108,12 +119,17 @@ import './style.css';
 
 
   function displayInfo(data) {
-    humidity.textContent = `Humidity: ${data.hum}`
-    condition.textContent = `Condition: ${data.condition}`
+    humidity.textContent = `${data.hum}`
+    humidityTxt.textContent = 'Humidity'
+    conditionTxt.textContent = `${data.condition}`
     tempC.textContent = `${data.tempC}°C`
     tempF.textContent = `${data.tempF}°F`
     tempFeelC.textContent = `Feels like ${data.feelsLikeC}°C`
     tempFeelF.textContent = `Feels like ${data.feelsLikeF}°F`
+  }
+
+  function getCondImg(cond) {
+
   }
 
   getWeatherData();
