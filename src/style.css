@@ -4,37 +4,58 @@
   margin: 0;
 }
 
-.main {
-  display: flex;
-  gap: 3rem;
+body {
+  height: 100vh;
+  background-image: linear-gradient(to bottom right, #172554, 60%, #166534);
 }
 
 .container{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-
-  margin-top: max(12rem);
+  padding: 4rem;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
-.weatherCard {
-  width: 16rem;
-  padding: 6rem 4rem;
-  border: 1px solid black;
+.weather {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 92px;
+}
+
+.celToFar,
+.searchBtn,
+.search {
+  border: none;
+  background-color: #eee;
+  padding: 0.7rem 3rem;
   border-radius: 10px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-.infoTemp {
-  font-size: 42px;
-  font-weight: 500;
-}
-
-.infoCond {
+  box-shadow: 2px 2px 12px rgba(0.2, 0.2, 0.2, 0.4);
   font-size: 24px;
+  font-weight: 500;
+  color: #222
+}
+
+.searchBox {
+  display: flex;
+  gap: 1rem;
+}
+
+.search {
+  width: 26rem;
+  padding: 0.7rem 1rem;
+  outline: none;
+}
+
+.celToFar:hover,
+.searchBtn:hover {
+  cursor: pointer;
+  transform: translate(2%, 2%);
+}
+
+.icon {
+  width: 128px;
 }
