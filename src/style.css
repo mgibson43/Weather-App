@@ -32,8 +32,8 @@ main {
   margin-bottom: 128px;
 }
 
-.celToFar,
-.searchBtn,
+.cel-to-far,
+.search-btn,
 .search {
   border: none;
   background-color: #eee;
@@ -45,7 +45,7 @@ main {
   color: #222
 }
 
-.searchBox {
+.search-box {
   display: flex;
   gap: 1rem;
 }
@@ -56,8 +56,8 @@ main {
   outline: none;
 }
 
-.celToFar:hover,
-.searchBtn:hover {
+.cel-to-far:hover,
+.search-btn:hover {
   cursor: pointer;
   transform: translate(2%, 2%);
 }

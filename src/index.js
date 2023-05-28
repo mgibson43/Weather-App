@@ -14,8 +14,10 @@ import conditionData from './weather_conditions.json';
   const temperature = document.querySelector('.temp');
   const location = document.querySelector('.location');
   const search = document.querySelector('.search');
-  const searchBtn = document.querySelector('.searchBtn')
+  const searchBtn = document.querySelector('.search-btn');
+  const celToFar = document.querySelector('.cel-to-far');
 
+  // Pulls data from weatherapi and stores it in an object
   async function getWeatherData() {
     let searchKey = 'New York';
     search.value == '' ? searchKey = 'New York' : searchKey = search.value;
@@ -49,15 +51,19 @@ import conditionData from './weather_conditions.json';
       };
 
       displayInfo(weatherData);
-      console.log(weatherData);
     }
 
     catch {
-      console.log('No such location');
+      alert('Location not found');
     }
   }
 
+  function organizeData(data) {
 
+  }
+
+
+  // Pushes info into HTML
   function displayInfo(data) {
     const iconCode = conditionData.find(cond => cond.code == data.condition).icon;
     icon.setAttribute('src', `./icons/${iconCode}.svg`);
@@ -67,21 +73,24 @@ import conditionData from './weather_conditions.json';
     }
 
     if (metric === 'c') {
-      temperature.textContent = data.tempC;
+      temperature.textContent = `${data.tempC}°C`;
     }
   }
 
-  function getCondImg(cond) {
-
+  function metricChange() {
+    metric === 'f' ? metric = 'c' : metric = 'f';
+    getWeatherData();
   }
 
+  // Event listeners
   searchBtn.addEventListener('click', getWeatherData);
   search.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
       e.preventDefault();
       getWeatherData();
     }
-  })
+  });
+  celToFar.addEventListener('click', metricChange);
 
   getWeatherData();
 })();
