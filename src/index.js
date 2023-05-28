@@ -1,14 +1,25 @@
+// Imports for style and weather condition codes
 import './style.css';
 import conditionData from './weather_conditions.json';
 
+// IIFE for encapsulation
 (function() {
   'use strict'
 
-  console.log(conditionData);
+  // Switch for unit of heat
+  let metric = 'f';
+
+  // Query selectors
+  const icon = document.querySelector('.icon');
+  const temperature = document.querySelector('.temp');
+  const location = document.querySelector('.location');
+  const search = document.querySelector('.search');
+  const searchBtn = document.querySelector('.searchBtn')
+
   async function getWeatherData() {
     let searchKey = 'New York';
-    // search.value == '' ? searchKey = 'New York' : searchKey = search.value;
-    // search.value = '';
+    search.value == '' ? searchKey = 'New York' : searchKey = search.value;
+    search.value = '';
     try {
       const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=48bf9f94d8334512a48223601232205&q=${searchKey}&aqi=no`, {mode: 'cors'});
       
@@ -49,12 +60,28 @@ import conditionData from './weather_conditions.json';
 
   function displayInfo(data) {
     const iconCode = conditionData.find(cond => cond.code == data.condition).icon;
-    document.querySelector('.icon').setAttribute('src', `./icons/${iconCode}.svg`);
+    icon.setAttribute('src', `./icons/${iconCode}.svg`);
+    location.textContent = `${data.loc}, ${data.country}`;
+    if (metric === 'f') {
+      temperature.textContent = `${data.tempF}°F`;
+    }
+
+    if (metric === 'c') {
+      temperature.textContent = data.tempC;
+    }
   }
 
   function getCondImg(cond) {
 
   }
+
+  searchBtn.addEventListener('click', getWeatherData);
+  search.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      getWeatherData();
+    }
+  })
 
   getWeatherData();
 })();
