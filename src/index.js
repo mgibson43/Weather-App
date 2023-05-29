@@ -17,6 +17,9 @@ import conditionData from './weather_conditions.json';
   const searchBtn = document.querySelector('.search-btn');
   const celToFar = document.querySelector('.cel-to-far');
 
+  // Initialize weatherData object;
+  let weatherData;
+
   // Pulls data from weatherapi and stores it in an object
   async function getWeatherData() {
     let searchKey = 'New York';
@@ -26,31 +29,10 @@ import conditionData from './weather_conditions.json';
       const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=48bf9f94d8334512a48223601232205&q=${searchKey}&aqi=no`, {mode: 'cors'});
       
       const responseData = await response.json();
-      console.log(responseData);
+
+      weatherData = organizeData(responseData);
       
-      const weatherData = {
-        tempF: responseData.current.temp_f,
-        
-        tempC: responseData.current.temp_c,
-        
-        feelsLikeF: responseData.current.feelslike_f,
-        
-        feelsLikeC: responseData.current.feelslike_c,
-        
-        condition: responseData.current.condition.code,
-        
-        hum: responseData.current.humidity,
-        
-        loc: responseData.location.name,
-        
-        country: responseData.location.country,
-
-        windMph: responseData.current.wind_mph,
-
-        windKph: responseData.current.wind_kph,
-      };
-
-      displayInfo(weatherData);
+      displayInfo();
     }
 
     catch {
@@ -59,27 +41,48 @@ import conditionData from './weather_conditions.json';
   }
 
   function organizeData(data) {
+    const weatherData = {
+      tempF: data.current.temp_f,
+      
+      tempC: data.current.temp_c,
+      
+      feelsLikeF: data.current.feelslike_f,
+      
+      feelsLikeC: data.current.feelslike_c,
+      
+      condition: data.current.condition.code,
+      
+      hum: data.current.humidity,
+      
+      loc: data.location.name,
+      
+      country: data.location.country,
 
+      windMph: data.current.wind_mph,
+
+      windKph: data.current.wind_kph,
+    };
+    return weatherData;
   }
 
 
   // Pushes info into HTML
-  function displayInfo(data) {
-    const iconCode = conditionData.find(cond => cond.code == data.condition).icon;
+  function displayInfo() {
+    const iconCode = conditionData.find(cond => cond.code == weatherData.condition).icon;
     icon.setAttribute('src', `./icons/${iconCode}.svg`);
-    location.textContent = `${data.loc}, ${data.country}`;
+    location.textContent = `${weatherData.loc}, ${weatherData.country}`;
     if (metric === 'f') {
-      temperature.textContent = `${data.tempF}°F`;
+      temperature.textContent = `${weatherData.tempF}°F`;
     }
 
     if (metric === 'c') {
-      temperature.textContent = `${data.tempC}°C`;
+      temperature.textContent = `${weatherData.tempC}°C`;
     }
   }
 
   function metricChange() {
     metric === 'f' ? metric = 'c' : metric = 'f';
-    getWeatherData();
+    displayInfo();
   }
 
   // Event listeners
