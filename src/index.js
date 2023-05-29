@@ -16,6 +16,9 @@ import conditionData from './weather_conditions.json';
   const search = document.querySelector('.search');
   const searchBtn = document.querySelector('.search-btn');
   const celToFar = document.querySelector('.cel-to-far');
+  const feel = document.querySelector('.feel');
+  const wind = document.querySelector('.wind');
+  const humVal = document.querySelector('.hum');
 
   // Initialize weatherData object;
   let weatherData;
@@ -40,6 +43,7 @@ import conditionData from './weather_conditions.json';
     }
   }
 
+  // Parses data from weatherapi into an object
   function organizeData(data) {
     const weatherData = {
       tempF: data.current.temp_f,
@@ -71,15 +75,21 @@ import conditionData from './weather_conditions.json';
     const iconCode = conditionData.find(cond => cond.code == weatherData.condition).icon;
     icon.setAttribute('src', `./icons/${iconCode}.svg`);
     location.textContent = `${weatherData.loc}, ${weatherData.country}`;
+    humVal.textContent = `Humidity: ${weatherData.hum}`;
     if (metric === 'f') {
       temperature.textContent = `${weatherData.tempF}°F`;
+      feel.textContent = `Feels like ${weatherData.feelsLikeF}°F`;
+      wind.textContent = `Wind: ${weatherData.windMph} mph`;
     }
 
     if (metric === 'c') {
       temperature.textContent = `${weatherData.tempC}°C`;
+      feel.textContent = `Feels like ${weatherData.feelsLikeC}°C`;
+      wind.textContent = `Wind: ${weatherData.windKph} kph`;
     }
   }
 
+  // Changes unit of heat
   function metricChange() {
     metric === 'f' ? metric = 'c' : metric = 'f';
     displayInfo();
@@ -95,5 +105,6 @@ import conditionData from './weather_conditions.json';
   });
   celToFar.addEventListener('click', metricChange);
 
+  // Runs when webpage is first opened
   getWeatherData();
 })();
